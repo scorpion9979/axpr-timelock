@@ -10,7 +10,7 @@ import "../node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20Detaile
 
 contract FakeAxpr is ERC20, ERC20Detailed {
     uint8 public constant DECIMALS = 18;
-    uint256 public constant INITIAL_SUPPLY = 2000e18;
+    uint256 public constant INITIAL_SUPPLY = 348700466.85087e18;
 
     /**
      * @dev Constructor that gives msg.sender all of existing tokens.
