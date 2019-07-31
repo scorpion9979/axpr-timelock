@@ -44,20 +44,20 @@ contract Timelock is Ownable, Pausable {
     
     constructor (address token) public {
         _token = IERC20(token);
-        _funds = _token.balanceOf(owner());
+        _funds = _token.balanceOf(address(this));
     }
 
     /**  
      * @dev update balance on receiving more AXPR
      */
     function () external payable {
-        _funds = _token.balanceOf(owner());
+        _funds = _token.balanceOf(address(this));
     }
 
     /**  
      * @dev return the amount of AXPR funds in the smart contract
      */
-    function funds() public view returns(uint256) {
+    function funds() public view onlyOwner returns(uint256) {
         return _funds;
     }
 
@@ -65,6 +65,7 @@ contract Timelock is Ownable, Pausable {
      * @dev return the amount of AXPR funds locked for a certain beneficiary
      */
     function balanceOf(address beneficiary) public view onlyOwner returns(uint256) {
+        require(beneficiary != address(0), "Timelock: beneficiary is the zero address");
         return _amounts[beneficiary];
     }
 
@@ -72,6 +73,7 @@ contract Timelock is Ownable, Pausable {
      * @dev return the time to release AXPR funds locked for a certain beneficiary
      */
     function releaseTimeOf(address beneficiary) public view onlyOwner returns(uint256) {
+        require(beneficiary != address(0), "Timelock: beneficiary is the zero address");
         return _releaseTimes[beneficiary];
     }
 
@@ -80,6 +82,7 @@ contract Timelock is Ownable, Pausable {
      * token contract address as identifier in mapping
      */
     function lock(address beneficiary, uint256 releaseTime, uint256 amount) public onlyOwner whenNotPaused {
+        require(beneficiary != address(0), "Timelock: beneficiary is the zero address");
         require(releaseTime > block.timestamp, "Timelock: release time is before current time");
         require(amount <= _funds && amount > 0, "Timelock: amount of tokens to be locked is invalid");
         _releaseTimes[beneficiary] = releaseTime;
@@ -90,11 +93,13 @@ contract Timelock is Ownable, Pausable {
     /**
      * @dev transfers tokens held by timelock to beneficiary.
      */
-    function release(address beneficiary) public onlyOwner whenNotPaused {
+    function release(address beneficiary) public payable onlyOwner whenNotPaused {
         // solhint-disable-next-line not-rely-on-time
+        require(beneficiary != address(0), "Timelock: beneficiary is the zero address");
         require(block.timestamp >= _releaseTimes[beneficiary], "Timelock: current time is before release time");
         uint256 amount = _amounts[beneficiary];
-        require(amount > 0, "Timelock: no tokens to release");
+        require(amount > 0, "Timelock: no tokens locked for beneficiary");
+        require(_token.balanceOf(address(this)) >= amount, "Timelock: not enough tokens in contract owner address");
         _token.safeTransfer(beneficiary, amount);
     }
 }
