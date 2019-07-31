@@ -93,7 +93,7 @@ contract Timelock is Ownable, Pausable {
     /**
      * @dev transfers tokens held by timelock to beneficiary.
      */
-    function release(address beneficiary) public payable onlyOwner whenNotPaused {
+    function release(address beneficiary) public onlyOwner whenNotPaused {
         // solhint-disable-next-line not-rely-on-time
         require(beneficiary != address(0), "Timelock: beneficiary is the zero address");
         require(block.timestamp >= _releaseTimes[beneficiary], "Timelock: current time is before release time");

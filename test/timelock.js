@@ -21,7 +21,7 @@ contract("timelock: lock AXPR tokens and release them after a set time period", 
     it("should update funds upon receiving AXPR", async function () {
         const amount = BN("92" + "0".repeat(18));
         await faxpr.transfer(timelock.address, amount, { from: axprOwner });
-        await timelock.sendTransaction({ from: axprOwner, value: BN("4" + "0".repeat(18)) });
+        await timelock.sendTransaction({ from: axprOwner, value: BN("5" + "0".repeat(15)) });
         let funds = await timelock.funds.call();
         assert.equal(funds.toString(), amount.toString());
         let balance = await faxpr.balanceOf.call(timelock.address, { from: axprOwner });
