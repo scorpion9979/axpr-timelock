@@ -1,17 +1,34 @@
 <template>
-  <div class="section has-text-centered" id="app">
-    <Lock web3="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <hero v-bind:title="this.$route.meta.title" v-bind:subtitle="this.$route.meta.subtitle"/>
+    <div class="tabs is-centered is-medium">
+      <ul>
+        <li v-bind:class="this.$route.name=='lock'?'is-active':''">
+          <router-link to="/lock">
+            <span class="icon is-small"><i class="fas fa-lock" aria-hidden="true"></i></span>
+            <span>Lock</span>
+          </router-link>
+        </li>
+        <li v-bind:class="this.$route.name=='release'?'is-active':''">
+          <router-link to="/release">
+            <span class="icon is-small"><i class="fas fa-unlock" aria-hidden="true"></i></span>
+            <span>Release</span>
+          </router-link>
+        </li>
+      </ul>
+    </div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 // import getWeb3 from "./utils/getWeb3.js";
-import Lock from './components/Lock.vue'
+import Hero from './components/Hero.vue'
 
 export default {
   name: 'app',
   components: {
-    Lock
+    Hero
   }
 }
 </script>

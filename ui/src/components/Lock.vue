@@ -1,13 +1,5 @@
 <template>
-  <div class="lock">
-    <div class="hero">
-      <div class="hero-body">
-        <h3 class="title">Lock Page</h3>
-        <p class="subtitle">
-          Here you can lock AXPR for a specified address to be released at a specified time
-        </p>
-      </div>
-    </div>
+  <div class="lock section has-text-centered">
     <div class="container">
       <div class="field">
         <div class="control has-icons-left">
@@ -19,34 +11,39 @@
       </div>
       <div class="field">
         <div class="control has-icons-left">
-          <input class="input is-large" placeholder="Amount">
+          <input class="input is-medium" type="number" placeholder="Amount">
           <span class="icon is-small is-left">
-            <i class="fas fa-dollar-sign"></i>
+            <i class="fas fa-coins"></i>
           </span>
         </div>
       </div>
-      <div class="field">
+      <b-field>
+          <b-datepicker
+              placeholder="Date for release"
+              icon="calendar-today"
+              size="is-medium"
+              editable>
+          </b-datepicker>
+      </b-field>
+      <!-- <div class="field">
         <div class="control has-icons-left">
           <input class="input is-large" type="date" placeholder="Date for release"/>
           <span class="icon is-small is-left">
             <i class="fas fa-calendar-alt"></i>
           </span>
         </div>
-      </div>
-      <a class="button is-warning">Go!</a>
+      </div> -->
+      <a class="button is-warning is-large">Lock</a>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Lock',
+  name: 'lock',
   props: {
     web3: String
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>
