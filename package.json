@@ -2,6 +2,8 @@
   "name": "axpr-timelock",
   "version": "1.0.0",
   "scripts": {
+    "build": "npm install && cd ui/ && npm install && npm run build",
+    "start": "cd ui/ && npm run start",
     "test": "truffle test",
     "compile": "truffle compile",
     "migrate": "truffle migrate"
@@ -13,8 +15,6 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "chai-as-promised": "^7.1.1",
-    "chai-bn": "^0.1.1",
     "dotenv": "^8.0.0",
     "truffle-hdwallet-provider": "^1.0.14"
   }

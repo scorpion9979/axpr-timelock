@@ -6,7 +6,7 @@ const BN = web3.utils.toBN;
 let timelock, faxpr;
 
 contract("timelock: lock AXPR tokens and release them after a set time period", async function (accounts) {
-    let [timelockOwner, axprOwner, accountA, accountB, accountC, accountD] = accounts;
+    let [timelockOwner, axprOwner, accountA, accountB, accountC] = accounts;
 
     before(async function () {
         faxpr = await FakeAxpr.deployed();
@@ -99,7 +99,7 @@ contract("timelock: lock AXPR tokens and release them after a set time period", 
     })
 
     it("should unlock individual user balances after period passes", function(done) {
-        this.timeout(22000);
+        this.timeout(25000);
         setTimeout(async function () {
             const diffAmount1 = BN("59" + "0".repeat(18));
             const diffAmount2 = BN("21" + "0".repeat(18));
@@ -147,7 +147,7 @@ contract("timelock: lock AXPR tokens and release them after a set time period", 
     });
 
     it("should unlock an individual user balance after period passes", function(done) {
-        this.timeout(12000);
+        this.timeout(15000);
         setTimeout(async function () {
             const beforeAmount = BN("59" + "0".repeat(18));
             const diffAmount = BN("24" + "0".repeat(18));
