@@ -1,17 +1,17 @@
 <template>
-  <div class="release has-text-centered">
-    <div class="columns is-centered is-mobile">
-      <div class="column is-three-fifths-desktop is-four-fifths-mobile">
-        <div class="container">
-          <div class="field">
-            <div class="control has-icons-left">
-              <input class="input is-large" placeholder="Recipient">
-              <span class="icon is-small is-left">
-                <i class="fab fa-ethereum"></i>
+  <div class='release has-text-centered'>
+    <div class='columns is-centered is-mobile'>
+      <div class='column is-three-fifths-desktop is-four-fifths-mobile'>
+        <div class='container'>
+          <div class='field'>
+            <div class='control has-icons-left'>
+              <input v-model='address' class='input is-large' placeholder='Recipient'>
+              <span class='icon is-small is-left'>
+                <i class='fab fa-ethereum'></i>
               </span>
             </div>
           </div>
-          <button class="button is-warning is-large">Release</button>
+          <button v-bind:disabled='disabled()' v-on:click='release' class='button is-warning is-large'>Release</button>
         </div>
       </div>
     </div>
@@ -21,8 +21,18 @@
 <script>
 export default {
   name: 'release',
-  props: {
-    web3: String
+  data: function() {
+    return {
+      address: '',
+    }
+  },
+  inject: ['web3', 'instance', 'disabled', 'toggleDisabled'],
+  methods: {
+    release: async function() {
+      this.toggleDisabled();
+      let addy = await this.web3().eth.getAccounts();
+      return await this.instance().release(this.address, { gas: 400000, from: addy.toString() }).then(this.toggleDisabled);
+    }
   }
 }
 </script>

@@ -11,6 +11,7 @@
   "dependencies": {
     "buefy": "^0.8.0",
     "core-js": "^2.6.5",
+    "human-standard-token-abi": "^2.0.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
     "truffle-contract": "^4.0.27",

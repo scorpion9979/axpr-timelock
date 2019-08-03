@@ -1,5 +1,6 @@
 import Lock from './components/Lock.vue';
 import Release from './components/Release.vue';
+import Deposit from './components/Deposit.vue';
 
 const routes = [
     {
@@ -8,8 +9,8 @@ const routes = [
         name: 'lock',
         alias: '/lock',
         meta: {
-            title: "Lock Page",
-            subtitle: "Here you can lock AXPR for a specified address to be released at a specified time"
+            title: 'Lock Page',
+            subtitle: 'Here you can lock AXPR for a specified address to be released at a specified time'
         }
     },
     {
@@ -17,8 +18,17 @@ const routes = [
         component: Release,
         name: 'release',
         meta: {
-            title: "Release Page",
-            subtitle: "Here you can release locked AXPR for an address after the lock period has passed"
+            title: 'Release Page',
+            subtitle: 'Here you can release locked AXPR for an address after the lock period has passed'
+        }
+    },
+    {
+        path: '/deposit',
+        component: Deposit,
+        name: 'deposit',
+        meta: {
+            title: 'Deposit Page',
+            subtitle: 'Here you can deposit AXPR to fund the DApp'
         }
     }
 ];
