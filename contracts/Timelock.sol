@@ -75,7 +75,7 @@ contract Timelock is Ownable, Pausable {
     }
 
     /**  
-     * @dev deposit AXPR tokens
+     * @dev deposit tokens
      * @notice deposited tokens are added to the non-locked token funds
      */
     function deposit(uint256 amount) public {
@@ -86,8 +86,8 @@ contract Timelock is Ownable, Pausable {
     }
 
     /**  
-     * @dev add token to list of supported tokens using
-     * token contract address as identifier in mapping
+     * @dev lock an amount of tokens for a beneficiary for them to be
+     * released at a later point in the future
      * @notice when locking funds for the same user multiple times, it adds
      * to the already locked amounts and uses the last release time defined
      */
@@ -107,6 +107,7 @@ contract Timelock is Ownable, Pausable {
     function release(address beneficiary) public onlyOwner whenNotPaused {
         // solhint-disable-next-line not-rely-on-time
         require(beneficiary != address(0), "Timelock: beneficiary is the zero address");
+        require(_balances[beneficiary] > 0, "Timelock: no tokens locked for beneficiary");
         require(block.timestamp >= _releaseTimes[beneficiary], "Timelock: current time is before release time");
         uint256 amount = _balances[beneficiary];
         _token.safeTransfer(beneficiary, amount);
