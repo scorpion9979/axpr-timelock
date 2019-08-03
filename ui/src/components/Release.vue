@@ -11,7 +11,7 @@
               </span>
             </div>
           </div>
-          <a class="button is-warning is-large">Release</a>
+          <button class="button is-warning is-large">Release</button>
         </div>
       </div>
     </div>

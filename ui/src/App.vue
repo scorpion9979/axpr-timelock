@@ -22,7 +22,6 @@
 </template>
 
 <script>
-// import getWeb3 from "./utils/getWeb3.js";
 import Hero from './components/Hero.vue'
 
 export default {

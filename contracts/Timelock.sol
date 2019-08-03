@@ -54,14 +54,14 @@ contract Timelock is Ownable, Pausable {
     /**  
      * @dev return the amount of token funds in the smart contract
      */
-    function funds() public view onlyOwner returns(uint256) {
+    function funds() public view returns(uint256) {
         return _funds;
     }
 
     /**  
      * @dev return the amount of token funds locked for a certain beneficiary
      */
-    function balanceOf(address beneficiary) public view onlyOwner returns(uint256) {
+    function balanceOf(address beneficiary) public view returns(uint256) {
         require(beneficiary != address(0), "Timelock: beneficiary is the zero address");
         return _balances[beneficiary];
     }
@@ -69,7 +69,7 @@ contract Timelock is Ownable, Pausable {
     /**  
      * @dev return the time to release token funds locked for a certain beneficiary
      */
-    function releaseTimeOf(address beneficiary) public view onlyOwner returns(uint256) {
+    function releaseTimeOf(address beneficiary) public view returns(uint256) {
         require(beneficiary != address(0), "Timelock: beneficiary is the zero address");
         return _releaseTimes[beneficiary];
     }
