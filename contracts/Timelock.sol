@@ -18,6 +18,8 @@ contract Timelock is Ownable, Pausable {
     // safely interact with a third-party token
     using SafeERC20 for IERC20;
     
+    event TokensDeposited(uint256 amount);
+    event TokensLocked(address beneficiary, uint256 amount);
     event TokensReleased(address beneficiary, uint256 amount);
 
     /**
@@ -50,13 +52,6 @@ contract Timelock is Ownable, Pausable {
     }
 
     /**  
-     * @dev update balance on receiving more tokens
-     */
-    function () external payable {
-        _funds = _token.balanceOf(address(this));
-    }
-
-    /**  
      * @dev return the amount of token funds in the smart contract
      */
     function funds() public view onlyOwner returns(uint256) {
@@ -80,6 +75,17 @@ contract Timelock is Ownable, Pausable {
     }
 
     /**  
+     * @dev deposit AXPR tokens
+     * @notice deposited tokens are added to the non-locked token funds
+     */
+    function deposit(uint256 amount) public {
+        require(amount > 0, "Timelock: amount of tokens to be deposited is invalid");
+        _token.safeTransferFrom(msg.sender, address(this), amount);
+        _funds += amount;
+        emit TokensDeposited(amount);
+    }
+
+    /**  
      * @dev add token to list of supported tokens using
      * token contract address as identifier in mapping
      * @notice when locking funds for the same user multiple times, it adds
@@ -91,6 +97,7 @@ contract Timelock is Ownable, Pausable {
         _releaseTimes[beneficiary] = releaseTime;
         _balances[beneficiary] += amount;
         _funds -= amount;
+        emit TokensLocked(beneficiary, amount);(beneficiary, amount);
     }
     
     /**
@@ -102,8 +109,6 @@ contract Timelock is Ownable, Pausable {
         require(beneficiary != address(0), "Timelock: beneficiary is the zero address");
         require(block.timestamp >= _releaseTimes[beneficiary], "Timelock: current time is before release time");
         uint256 amount = _balances[beneficiary];
-        require(amount > 0, "Timelock: no tokens locked for beneficiary");
-        require(_token.balanceOf(address(this)) >= amount, "Timelock: not enough tokens in contract");
         _token.safeTransfer(beneficiary, amount);
         _balances[beneficiary] = 0;
         emit TokensReleased(beneficiary, amount);
