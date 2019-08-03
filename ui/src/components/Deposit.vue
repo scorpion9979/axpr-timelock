@@ -5,6 +5,7 @@
         <div class='container'>
           <div class='field'>
             <div class='control has-icons-left'>
+              <!--TODO: prevent negative amount input-->
               <input v-model='amount' class='input is-medium' type='number' placeholder='Amount'>
               <span class='icon is-small is-left'>
                 <i class='fas fa-coins'></i>
@@ -33,10 +34,11 @@ export default {
   methods: {
     deposit: async function() {
       this.toggleDisabled();
-      let addy = await this.web3().eth.getAccounts();
-      await this.axpr().methods.approve(this.timelock().address, this.web3().utils.toHex(this.bnAmount)).send({ from: addy.toString(), gas: 400000 });
+      const account = await this.web3().eth.getAccounts();
+      // TODO: use gas estimation
+      await this.axpr().methods.approve(this.timelock().address, this.web3().utils.toHex(this.bnAmount)).send({ from: account.toString(), gas: 400000 });
       // await this.axpr().approve(this.timelock().address, this.bnAmount, { from: addy.toString(), gas: 400000 });
-      return await this.instance().deposit(this.bnAmount, { gas: 400000, from: addy.toString() }).then(this.toggleDisabled);
+      return await this.instance().deposit(this.bnAmount, { gas: 400000, from: account.toString() }).then(this.toggleDisabled);
     }
   }
 }

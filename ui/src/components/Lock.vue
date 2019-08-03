@@ -46,16 +46,16 @@ export default {
     }
   },
   computed: {
-    bnAmount: function() { return this.web3().utils.toBN(this.amount.toString() + '0'.repeat(18)) },
-    // TODO: fix date computation
-    bnDate: function() { return this.web3().utils.toBN(Date.parse(this.date)); }
+    BN: function() { return this.web3().utils.toBN },
+    bnAmount: function() { return this.BN(this.amount.toString() + '0'.repeat(18)) },
+    bnDate: function() { return (this.BN(Date.parse(this.date))).div(this.BN(1000)); }
   },
   inject: ['web3', 'instance', 'disabled', 'toggleDisabled'],
   methods: {
     lock: async function() {
       this.toggleDisabled();
-      let addy = await this.web3().eth.getAccounts();
-      return await this.instance().lock(this.address, this.bnDate, this.bnAmount, { gas: 400000, from: addy.toString() }).then(this.toggleDisabled);
+      const account = await this.web3().eth.getAccounts();
+      return await this.instance().lock(this.address, this.bnDate, this.bnAmount, { gas: 400000, from: account.toString() }).then(this.toggleDisabled);
     }
   }
 }

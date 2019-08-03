@@ -30,8 +30,10 @@ export default {
   methods: {
     release: async function() {
       this.toggleDisabled();
-      let addy = await this.web3().eth.getAccounts();
-      return await this.instance().release(this.address, { gas: 400000, from: addy.toString() }).then(this.toggleDisabled);
+      const account = await this.web3().eth.getAccounts();
+      // TODO: use UI prompts for all 3 pages
+      // TODO: try .. catch to handle errors w/ proper UI prompts & button reset
+      return await this.instance().release(this.address, { gas: 400000, from: account.toString() }).then(this.toggleDisabled);
     }
   }
 }
