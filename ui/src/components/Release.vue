@@ -26,14 +26,19 @@ export default {
       address: '',
     }
   },
-  inject: ['web3', 'instance', 'disabled', 'toggleDisabled'],
+  inject: ['web3', 'instance', 'disabled', 'toggleDisabled', 'success', 'danger'],
   methods: {
     release: async function() {
       this.toggleDisabled();
-      const account = await this.web3().eth.getAccounts();
-      // TODO: use UI prompts for all 3 pages
-      // TODO: try .. catch to handle errors w/ proper UI prompts & button reset
-      return await this.instance().release(this.address, { gas: 400000, from: account.toString() }).then(this.toggleDisabled);
+      try {
+        const account = await this.web3().eth.getAccounts();
+        await this.instance().release(this.address, { gas: 400000, from: account.toString() })
+                             .then(() => this.success('AXPR released successfully'));
+        this.toggleDisabled();
+      } catch (err) {
+        this.toggleDisabled();
+        this.danger('Encountered an error');
+      }
     }
   }
 }

@@ -49,6 +49,19 @@ new Vue({
         this.disabled = !this.disabled;
         return this.disabled;
       },
+      success: function(message) {
+        this.$buefy.toast.open({
+          message,
+          type: 'is-success'
+        })
+      },
+      danger: function(message) {
+        this.$buefy.toast.open({
+          message,
+          position: 'is-bottom',
+          type: 'is-danger'
+        })
+      },
     }
   },
   render: h => h(App)

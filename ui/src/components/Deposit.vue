@@ -30,15 +30,21 @@ export default {
   computed: {
     bnAmount: function() { return this.web3().utils.toBN(this.amount.toString() + '0'.repeat(18)) },
   },
-  inject: ['web3', 'timelock', 'instance', 'axpr', 'disabled', 'toggleDisabled'],
+  inject: ['web3', 'timelock', 'instance', 'axpr', 'disabled', 'toggleDisabled', 'success', 'danger'],
   methods: {
     deposit: async function() {
       this.toggleDisabled();
-      const account = await this.web3().eth.getAccounts();
-      // TODO: use gas estimation
-      await this.axpr().methods.approve(this.timelock().address, this.web3().utils.toHex(this.bnAmount)).send({ from: account.toString(), gas: 400000 });
-      // await this.axpr().approve(this.timelock().address, this.bnAmount, { from: addy.toString(), gas: 400000 });
-      return await this.instance().deposit(this.bnAmount, { gas: 400000, from: account.toString() }).then(this.toggleDisabled);
+      try {
+        const account = await this.web3().eth.getAccounts();
+        await this.axpr().methods.approve(this.timelock().address, this.web3().utils.toHex(this.bnAmount))
+                                .send({ from: account.toString(), gas: 400000 });
+        await this.instance().deposit(this.bnAmount, { gas: 400000, from: account.toString() })
+                            .then(() => this.success('AXPR deposited successfully'));
+        this.toggleDisabled();
+      } catch (err) {
+        this.toggleDisabled();
+        this.danger('Encountered an error');
+      }
     }
   }
 }

@@ -50,12 +50,19 @@ export default {
     bnAmount: function() { return this.BN(this.amount.toString() + '0'.repeat(18)) },
     bnDate: function() { return (this.BN(Date.parse(this.date))).div(this.BN(1000)); }
   },
-  inject: ['web3', 'instance', 'disabled', 'toggleDisabled'],
+  inject: ['web3', 'instance', 'disabled', 'toggleDisabled', 'success', 'danger'],
   methods: {
     lock: async function() {
       this.toggleDisabled();
-      const account = await this.web3().eth.getAccounts();
-      return await this.instance().lock(this.address, this.bnDate, this.bnAmount, { gas: 400000, from: account.toString() }).then(this.toggleDisabled);
+      try {
+        const account = await this.web3().eth.getAccounts();
+        await this.instance().lock(this.address, this.bnDate, this.bnAmount, { gas: 400000, from: account.toString() })
+                             .then(() => this.success('AXPR locked successfully'));
+        this.toggleDisabled();
+      } catch (err) {
+        this.toggleDisabled();
+        this.danger('Encountered an error');
+      }
     }
   }
 }
