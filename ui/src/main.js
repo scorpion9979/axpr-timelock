@@ -12,7 +12,6 @@ import abi from 'human-standard-token-abi';
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
-// TODO: use Buefy templates
 Vue.use(Buefy)
 
 const router = new VueRouter({

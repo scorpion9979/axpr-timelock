@@ -3,15 +3,11 @@
     <div class='columns is-centered is-mobile'>
       <div class='column is-three-fifths-desktop is-four-fifths-mobile'>
         <div class='container'>
-          <div class='field'>
-            <div class='control has-icons-left'>
-              <input v-model='address' class='input is-large' placeholder='Recipient'>
-              <span class='icon is-small is-left'>
-                <i class='fab fa-ethereum'></i>
-              </span>
-            </div>
-          </div>
-          <button v-bind:disabled='disabled()' v-on:click='release' class='button is-warning is-large'>Release</button>
+          <b-field>
+            <b-input v-model='address' size='is-large' placeholder='Recipient' icon='ethereum'>
+            </b-input>
+          </b-field>
+          <b-button v-bind:disabled='disabled()' @click='release' type='is-warning' size='is-large'>Release</b-button>
         </div>
       </div>
     </div>

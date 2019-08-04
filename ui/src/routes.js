@@ -10,7 +10,7 @@ const routes = [
         alias: '/lock',
         meta: {
             title: 'Lock Page',
-            subtitle: 'Here you can lock AXPR for a specified address to be released at a specified time'
+            subtitle: 'Here you can lock AXPR to be released for a specified address at a specified time'
         }
     },
     {
