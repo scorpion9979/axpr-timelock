@@ -9,7 +9,7 @@ module.exports = function(deployer, network, accounts) {
     // Ropsten FakeAxpr token
     deployer.deploy(Timelock, "0xfeb796ec0495Db17DeD472E7aaed80B9e839fcEc");
   } else if (network == "development") {
-    let [timelockOwner, axprOwner] = accounts;
+    const [timelockOwner, axprOwner] = accounts;
     deployer.deploy(FakeAxpr, { from: axprOwner }).then(function() {
       return deployer.deploy(Timelock, FakeAxpr.address, { from: timelockOwner }).then(function() {
         console.log(`FakeAxpr contract: ${FakeAxpr.address}`);

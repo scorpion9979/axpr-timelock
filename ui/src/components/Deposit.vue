@@ -37,11 +37,14 @@ export default {
     deposit: async function() {
       this.toggleDisabled();
       try {
-        // TODO: gas estimation
-        const account = await this.web3().eth.getAccounts();
+        const from = await this.web3().eth.getCoinbase();
+        let gas;
+        gas = await this.axpr().methods.approve(this.timelock().address, this.web3().utils.toHex(this.bnAmount))
+                                       .estimateGas({ from });
         await this.axpr().methods.approve(this.timelock().address, this.web3().utils.toHex(this.bnAmount))
-                                 .send({ from: account.toString(), gas: 400000 });
-        await this.instance().deposit(this.bnAmount, { gas: 400000, from: account.toString() })
+                                 .send({ from, gas });
+        gas = await this.instance().deposit.estimateGas(this.bnAmount, { from });
+        await this.instance().deposit(this.bnAmount, { from, gas })
                              .then(() => this.success('AXPR deposited successfully'));
         this.toggleDisabled();
       } catch (err) {

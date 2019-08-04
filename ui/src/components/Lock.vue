@@ -54,8 +54,9 @@ export default {
     lock: async function() {
       this.toggleDisabled();
       try {
-        const account = await this.web3().eth.getAccounts();
-        await this.instance().lock(this.address, this.bnDate, this.bnAmount, { gas: 400000, from: account.toString() })
+        const from = await this.web3().eth.getCoinbase();
+        const gas = await this.instance().lock.estimateGas(this.address, this.bnDate, this.bnAmount, { from });
+        await this.instance().lock(this.address, this.bnDate, this.bnAmount, { from, gas })
                              .then(() => this.success('AXPR locked successfully'));
         this.toggleDisabled();
       } catch (err) {

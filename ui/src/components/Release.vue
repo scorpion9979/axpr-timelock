@@ -27,8 +27,9 @@ export default {
     release: async function() {
       this.toggleDisabled();
       try {
-        const account = await this.web3().eth.getAccounts();
-        await this.instance().release(this.address, { gas: 400000, from: account.toString() })
+        const from = await this.web3().eth.getCoinbase();
+        const gas = await this.instance().release.estimateGas(this.address, { from });
+        await this.instance().release(this.address, { from, gas })
                              .then(() => this.success('AXPR released successfully'));
         this.toggleDisabled();
       } catch (err) {

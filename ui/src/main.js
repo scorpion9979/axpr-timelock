@@ -29,15 +29,28 @@ new Vue({
       axpr: null,
     }
   },
-  mounted: async function() {
-    this.web3 = await getWeb3();
-    this.timelock = contract(Timelock);
-    this.timelock.setProvider(this.web3.currentProvider);
-    this.instance = await this.timelock.deployed();
-    this.axpr = new this.web3.eth.Contract(abi, '0xfeb796ec0495Db17DeD472E7aaed80B9e839fcEc');
-    this.disabled = false;
+  mounted: function() {
+    getWeb3().then(async (web3) => {
+      this.web3 = web3;
+      this.timelock = contract(Timelock);
+      this.timelock.setProvider(this.web3.currentProvider);
+      this.instance = await this.timelock.deployed();
+      this.axpr = new this.web3.eth.Contract(abi, '0xfeb796ec0495Db17DeD472E7aaed80B9e839fcEc');
+      this.disabled = false;
+    }).catch((e) => {
+      this.$buefy.snackbar.open({
+        message: e.message,
+        type: 'is-warning',
+        position: 'is-bottom',
+        actionText: 'Retry',
+        indefinite: true,
+        onAction: () => {
+          window.location.reload(false); 
+        }
+      });
+    });
   },
-  provide() {
+  provide: function() {
     return {
       web3: () => this.web3,
       timelock: () => this.timelock,

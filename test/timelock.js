@@ -6,7 +6,7 @@ const BN = web3.utils.toBN;
 let timelock, faxpr;
 
 contract("timelock: lock AXPR tokens and release them after a set time period", async function (accounts) {
-    let [timelockOwner, axprOwner, accountA, accountB, accountC] = accounts;
+    const [timelockOwner, axprOwner, accountA, accountB, accountC] = accounts;
 
     before(async function () {
         faxpr = await FakeAxpr.deployed();
@@ -14,7 +14,7 @@ contract("timelock: lock AXPR tokens and release them after a set time period", 
     });
 
     it("should start with a 0 AXPR fund", async function () {
-        let funds = await timelock.funds.call();
+        const funds = await timelock.funds.call();
         assert.equal(funds.toString(), "0");
     });
 
@@ -22,9 +22,9 @@ contract("timelock: lock AXPR tokens and release them after a set time period", 
         const amount = BN("140" + "0".repeat(18));
         await faxpr.approve(timelock.address, amount, { from: axprOwner });
         await timelock.deposit(amount, { from: axprOwner });
-        let funds = await timelock.funds.call();
+        const funds = await timelock.funds.call();
         assert.equal(funds.toString(), amount.toString());
-        let balance = await faxpr.balanceOf.call(timelock.address);
+        const balance = await faxpr.balanceOf.call(timelock.address);
         assert.equal(balance.toString(), amount.toString());
     });
 
@@ -39,9 +39,9 @@ contract("timelock: lock AXPR tokens and release them after a set time period", 
         const diffAmount = BN("35" + "0".repeat(18));
         const afterAmount = beforeAmount.sub(diffAmount);
         await timelock.lock(accountA, releaseTimestamp, diffAmount, { from: timelockOwner });
-        let funds = await timelock.funds.call();
+        const funds = await timelock.funds.call();
         assert.equal(funds.toString(), afterAmount.toString());
-        let balance = await timelock.balanceOf.call(accountA);
+        const balance = await timelock.balanceOf.call(accountA);
         assert.equal(balance.toString(), diffAmount.toString());
     });
 
@@ -61,12 +61,12 @@ contract("timelock: lock AXPR tokens and release them after a set time period", 
         await timelock.lock(accountB, releaseTimestamp, diffAmount1, { from: timelockOwner })
         funds = await timelock.funds.call();
         assert.equal(funds.toString(), afterAmount1.toString());
-        let balance1 = await timelock.balanceOf.call(accountB);
+        const balance1 = await timelock.balanceOf.call(accountB);
         assert.equal(balance1.toString(), diffAmount1.toString());
         await timelock.lock(accountC, releaseTimestamp, diffAmount2, { from: timelockOwner })
         funds = await timelock.funds.call();
         assert.equal(funds.toString(), afterAmount2.toString());
-        let balance2 = await timelock.balanceOf.call(accountC);
+        const balance2 = await timelock.balanceOf.call(accountC);
         assert.equal(balance2.toString(), diffAmount2.toString());
     });
 
@@ -86,7 +86,7 @@ contract("timelock: lock AXPR tokens and release them after a set time period", 
         await timelock.lock(accountA, releaseTimestamp, diffAmount, { from: timelockOwner });
         funds = await timelock.funds.call();
         assert.equal(funds.toString(), afterFunds.toString());
-        let balance = await timelock.balanceOf.call(accountA);
+        const balance = await timelock.balanceOf.call(accountA);
         assert.equal(balance.toString(), afterBalance.toString());
     });
 
@@ -107,9 +107,9 @@ contract("timelock: lock AXPR tokens and release them after a set time period", 
             await timelock.release(accountA, { from: timelockOwner });
             await timelock.release(accountB, { from: timelockOwner });
             await timelock.release(accountC, { from: timelockOwner });
-            let balance1 = await faxpr.balanceOf.call(accountA);
-            let balance2 = await faxpr.balanceOf.call(accountB);
-            let balance3 = await faxpr.balanceOf.call(accountC);
+            const balance1 = await faxpr.balanceOf.call(accountA);
+            const balance2 = await faxpr.balanceOf.call(accountB);
+            const balance3 = await faxpr.balanceOf.call(accountC);
             assert.equal(balance1.toString(), diffAmount1.toString());
             assert.equal(balance2.toString(), diffAmount2.toString());
             assert.equal(balance3.toString(), diffAmount3.toString());
@@ -142,7 +142,7 @@ contract("timelock: lock AXPR tokens and release them after a set time period", 
         await timelock.lock(accountA, releaseTimestamp, diffAmount, { from: timelockOwner });
         funds = await timelock.funds.call();
         assert.equal(funds.toString(), afterFunds.toString());
-        let balance = await timelock.balanceOf.call(accountA);
+        const balance = await timelock.balanceOf.call(accountA);
         assert.equal(balance.toString(), afterBalance.toString());
     });
 
