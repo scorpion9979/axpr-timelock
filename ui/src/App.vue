@@ -24,17 +24,19 @@
       </ul>
     </div>
     <router-view></router-view>
+    <b-loading :is-full-page='true' :active='disabled()' :can-cancel='true'></b-loading>
   </div>
 </template>
 
 <script>
-import Hero from "./components/Hero.vue"
+import Hero from './components/Hero.vue'
 
 export default {
-  name: "app",
+  name: 'app',
   components: {
     Hero
-  }
+  },
+  inject: ['disabled']
 }
 </script>
 
