@@ -24,7 +24,7 @@
       </ul>
     </div>
     <router-view></router-view>
-    <b-loading :is-full-page='true' :active='disabled()' :can-cancel='true'></b-loading>
+    <b-loading :is-full-page='true' :active='loading()' :can-cancel='true'></b-loading>
   </div>
 </template>
 
@@ -36,7 +36,7 @@ export default {
   components: {
     Hero
   },
-  inject: ['disabled']
+  inject: ['loading']
 }
 </script>
 

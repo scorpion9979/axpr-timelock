@@ -23,6 +23,7 @@ new Vue({
   data: function() {
     return {
       disabled: true,
+      loading: true,
       web3: null,
       instance: null,
       timelock: null,
@@ -37,6 +38,7 @@ new Vue({
       this.instance = await this.timelock.deployed();
       this.axpr = new this.web3.eth.Contract(abi, '0xfeb796ec0495Db17DeD472E7aaed80B9e839fcEc');
       this.disabled = false;
+      this.loading = false;
     }).catch((e) => {
       this.$buefy.snackbar.open({
         message: e.message,
@@ -57,6 +59,7 @@ new Vue({
       instance: () => this.instance,
       axpr: () => this.axpr,
       disabled: () => this.disabled,
+      loading: () => this.loading,
       toggleDisabled: () => {
         this.disabled = !this.disabled;
         return this.disabled;
