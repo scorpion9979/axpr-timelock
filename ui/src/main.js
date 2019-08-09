@@ -36,7 +36,7 @@ new Vue({
       this.timelock = contract(Timelock);
       this.timelock.setProvider(this.web3.currentProvider);
       this.instance = await this.timelock.deployed();
-      this.axpr = new this.web3.eth.Contract(abi, '0xfeb796ec0495Db17DeD472E7aaed80B9e839fcEc');
+      this.axpr = new this.web3.eth.Contract(abi, process.env.VUE_APP_AXPR_CONTRACT);
       this.disabled = false;
       this.loading = false;
     }).catch((e) => {
