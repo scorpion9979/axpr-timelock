@@ -8,6 +8,11 @@ In order to have the UI interact with AXPR token contract, you need to add the t
 npm install
 ```
 
+### Serve built files via Express.js
+```
+npm run start
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
