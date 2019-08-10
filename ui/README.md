@@ -1,4 +1,7 @@
-# ui
+# axpr-timelock-ui
+
+## Dev notes
+In order to have the UI interact with AXPR token contract, you need to add the token contract address as an environment variable which is VUE_APP_AXPR_CONTRACT.
 
 ## Project setup
 ```
