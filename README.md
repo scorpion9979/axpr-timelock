@@ -41,3 +41,8 @@ npm run compile
 ```
 npm run migrate
 ```
+
+## Project preview
+![project preview][preview]
+
+[preview]: https://i.imgur.com/RTVDBdI.jpg
