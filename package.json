@@ -2,7 +2,8 @@
   "name": "axpr-timelock",
   "version": "1.0.0",
   "scripts": {
-    "build": "npm install && cd ui/ && npm run build",
+    "install": "npm install && cd ui/ && npm install",
+    "build": "cd ui/ && npm run build",
     "start": "cd ui/ && npm run start",
     "dev": "cd ui/ && npm run serve",
     "compile": "truffle compile",
