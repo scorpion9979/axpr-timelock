@@ -5,9 +5,12 @@
     "build": "npm install && cd ui/ && npm run build",
     "start": "cd ui/ && npm run start",
     "dev": "cd ui/ && npm run serve",
-    "test": "truffle test",
     "compile": "truffle compile",
-    "migrate": "truffle migrate"
+    "migrate": "truffle migrate",
+    "testnet": "truffle migrate --reset --network ropsten",
+    "test": "./scripts/start-ganache.sh && truffle test",
+    "flatten": "./scripts/flatten.sh",
+    "clean": "rm -rf ./build ./flattened ganache-blockchain-log.txt"
   },
   "author": "scorpion9979",
   "license": "ISC",
@@ -17,6 +20,9 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "dotenv": "^8.0.0",
+    "ganache-cli": "^6.7.0",
+    "truffle": "^5.0.35",
+    "truffle-flattener": "^1.4.2",
     "truffle-hdwallet-provider": "^1.0.14"
   }
 }
