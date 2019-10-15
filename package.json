@@ -2,9 +2,9 @@
   "name": "axpr-timelock",
   "version": "1.0.0",
   "scripts": {
-    "build": "npm install && cd ui/ && npm install && npm run build",
-    "start": "cd ui/ && npm run start",
-    "dev": "cd ui/ && npm run serve",
+    "build": "yarn install && cd ui/ && yarn install && yarn run build",
+    "start": "cd ui/ && yarn run start",
+    "dev": "cd ui/ && yarn run serve",
     "compile": "truffle compile",
     "migrate": "truffle migrate",
     "testnet": "truffle migrate --reset --network ropsten",
