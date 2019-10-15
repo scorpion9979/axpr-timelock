@@ -1,4 +1,4 @@
-# axpr-timelock
+# axpr-timelock [![Build Status](https://travis-ci.org/scorpion9979/axpr-timelock.svg?branch=master)](https://travis-ci.org/scorpion9979/axpr-timelock)
 
 ## Dev notes
 In order to deploy the Timelock contract and have it interact with the AXPR token, you need to provide the following environment variables:
