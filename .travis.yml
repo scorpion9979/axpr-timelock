@@ -1,5 +1,7 @@
 language: node_js
 node_js:
   - "10"
-# fix EISGIT error
-before_install: dpkg --compare-versions `npm -v` ge 6.10.1 || npm i -g npm@^6.10.1
+cache:
+  yarn: true
+  directories:
+    - node_modules
