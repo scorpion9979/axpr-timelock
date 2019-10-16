@@ -6,7 +6,7 @@ import App from './App.vue'
 import routes from './routes'
 import getWeb3 from './utils/getWeb3.js';
 import Timelock from './contracts/Timelock';
-import * as contract from 'truffle-contract';
+import * as contract from '@truffle/contract';
 import abi from 'human-standard-token-abi';
 
 Vue.config.productionTip = false
