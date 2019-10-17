@@ -10,7 +10,7 @@
     "testnet": "truffle migrate --reset --network ropsten",
     "test": "./scripts/start-ganache.sh && truffle test",
     "flatten": "./scripts/flatten.sh",
-    "clean": "rm -rf ./flattened ganache-blockchain-log.txt"
+    "clean": "rm -rf ./ui/dist ./flattened ganache-blockchain-log.txt"
   },
   "author": "scorpion9979",
   "license": "ISC",
