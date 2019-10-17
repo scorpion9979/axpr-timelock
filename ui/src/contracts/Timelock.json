@@ -7564,12 +7564,12 @@
         }
       },
       "links": {},
-      "address": "0xCFb322640dD23b7B1D7d5d4827d582349A6fe228",
-      "transactionHash": "0xf3c7fcb4523c3f867c2f7f7a516085bf52d471d617f33cd2a78b090a5cf13412"
+      "address": "0x45D36FF4acCa58047E50861456E1B0772B738917",
+      "transactionHash": "0x428858f529b052bfc94df9554d4980c6d34f69ee2347817ee4c08dc7c7f698d8"
     }
   },
   "schemaVersion": "3.0.16",
-  "updatedAt": "2019-10-16T02:18:39.778Z",
+  "updatedAt": "2019-10-17T03:11:48.570Z",
   "devdoc": {
     "details": "the contract responsible for locking tokens for them to be sent after a defined amount of time has elapsed",
     "methods": {

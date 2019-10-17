@@ -1125,12 +1125,12 @@
         }
       },
       "links": {},
-      "address": "0x08531C06cef1dbB9C40a7E2a583B174f65cD525c",
-      "transactionHash": "0x7491a75a7e558242b496841416755f3326eb0def71a7218b8b91c47e58988a48"
+      "address": "0x24957e84e44d76f0f2E5e08658b4c501027c80F5",
+      "transactionHash": "0xb71524484679ea872e3ec11703c132e81bb23515cbae24b2253242a2a18248db"
     }
   },
   "schemaVersion": "3.0.16",
-  "updatedAt": "2019-10-16T02:18:39.801Z",
+  "updatedAt": "2019-10-17T03:11:48.610Z",
   "devdoc": {
     "details": "A fake token for testing purposes",
     "methods": {
