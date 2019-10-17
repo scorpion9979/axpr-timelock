@@ -1,3 +1,3 @@
 [submodule "@axpr-timelock/ui"]
 	path = ui
-	url = git@github.com:scorpion9979/axpr-timelock-ui.git
+	url = https://github.com/scorpion9979/axpr-timelock-ui.git
